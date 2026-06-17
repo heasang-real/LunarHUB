@@ -1,0 +1,71 @@
+# OS
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# VS Code
+
+.vscode/
+
+# JetBrains
+
+.idea/
+*.iml
+
+# Python
+
+**pycache**/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+
+# Node.js
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs
+
+logs/
+*.log
+
+# Environment Variables
+
+.env
+.env.*
+
+# Build
+
+dist/
+build/
+out/
+
+# Roblox Studio
+
+*.rbxl.lock
+*.rbxlx.lock
+
+# Temporary Files
+
+tmp/
+temp/
+*.tmp
+
+# GitHub
+
+.github/copilot-workspace/
+
+# Windows
+
+$RECYCLE.BIN/
+ehthumbs.db
+
+# OneDrive
+
+*.tmp.drivedownload
