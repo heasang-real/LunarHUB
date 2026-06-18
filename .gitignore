@@ -1,9 +1,12 @@
+auto_upload.bat
+FOR AI.md
+
+
 # OS
 
 .DS_Store
 Thumbs.db
 desktop.ini
-auto_upload.bat
 
 # VS Code
 
