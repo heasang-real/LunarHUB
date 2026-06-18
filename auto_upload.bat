@@ -1,18 +1,13 @@
 @echo off
-title LunarHUB Auto Git Push
+chcp 65001 >nul
+title LunarHUB Auto Uploader
 
 :loop
-cd /d "C:\Users\junya\OneDrive\Documents\yap\Development\LunarHUB"
-
+echo [%time%] Uploading...
 git add .
-
-git diff --cached --quiet
-if not %errorlevel%==0 (
-git commit -m "Auto Update %date% %time%"
+git commit -m "Auto-update: %date% %time%"
 git push origin main
-)
-
-echo [%date% %time%] Checked. Waiting 1 hour...
-timeout /t 3600 /nobreak >nul
-
+echo [%time%] Success! wait 10m...
+timeout /t 600 /nobreak
+echo.
 goto loop
