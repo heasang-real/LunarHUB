@@ -13,11 +13,12 @@ local Window = Library:CreateWindow({
 })
 
 local Tabs = {
-    Combat = Window:AddTab('Combat'),
-    Visuals = Window:AddTab('Visuals'),
+    Main = Window:AddTab('Main'),
+    Troll = Window:AddTab('Troll'),
+    Visual = Window:AddTab('Visual'),
     World = Window:AddTab('World'),
     Player = Window:AddTab('Player'),
-    Settings = Window:AddTab('Settings')
+    ['Script Settings'] = Window:AddTab('Script Settings')
 }
 
 -- GitHub Repository URL (User's repo)
@@ -25,10 +26,11 @@ local GitHubRepo = "https://raw.githubusercontent.com/heasang-real/LunarHUB/refs
 
 -- Modules to load dynamically
 local modules = {
-    "Combat",
-    "Visuals",
+    "Main",
+    "Troll",
+    "Visual",
     "World",
-    "LocalPlayer",
+    "Player",
     "Settings"
 }
 
@@ -38,17 +40,24 @@ for _, mod in ipairs(modules) do
     local success, result = pcall(function()
         return game:HttpGet(url)
     end)
-    
+
     if success then
         local loadedFunc = loadstring(result)
         if loadedFunc then
-            local initFunc = loadedFunc()
-            if type(initFunc) == "function" then
-                initFunc(Library, Window, Tabs, ThemeManager, SaveManager)
+            local initSuccess, initResult = pcall(loadedFunc)
+            if initSuccess and type(initResult) == "function" then
+                local runSuccess, runError = pcall(initResult, Library, Window, Tabs, ThemeManager, SaveManager)
+                if not runSuccess then
+                    warn("🌙 LunarHUB: Module '" .. mod .. "' runtime error:\n" .. tostring(runError))
+                end
+            elseif not initSuccess then
+                warn("🌙 LunarHUB: Module '" .. mod .. "' initialization error:\n" .. tostring(initResult))
             end
+        else
+            warn("🌙 LunarHUB: Failed to parse module '" .. mod .. "'")
         end
     else
-        warn("🌙 LunarHUB: Failed to load module " .. mod .. "\nError: " .. tostring(result))
+        warn("🌙 LunarHUB: Failed to download module '" .. mod .. "'\nError: " .. tostring(result))
     end
 end
 
